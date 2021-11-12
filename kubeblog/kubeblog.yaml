@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubeblog
+spec:
+  selector:
+    app: kubeblog
+  type: NodePort
+  ports:
+    - port: 5000
+      targetPort: 5000
+      nodePort: 30002
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubeblog
+spec:
+  selector:
+    matchLabels:
+      app: kubeblog
+  template:
+    metadata:
+      labels:
+        app: kubeblog
+    spec:
+      containers:
+        - name: kubeblog
+          image: wuyiccc/kubeblog:1.1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MYSQL_PORT
+              value: "30306"
+            - name: MYSQL_SERVER
+              value: "192.168.137.160"

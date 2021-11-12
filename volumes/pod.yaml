@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pod
+spec:
+  containers:
+    - name: test-pod
+      image: wuyiccc/nginx:latest
+      imagePullPolicy: Never
+      command:
+        - "/bin/sh"
+      args:
+        - "-c"
+        - "touch /mnt/SUCCESS && exit 0 || exit 1" # 创建一个SUCCESS文件后退出
+      volumeMounts:
+        - mountPath: "/mnt"
+          name: nfs-pvc
+  restartPolicy: "Never"
+  volumes:
+    - name: nfs-pvc
+      persistentVolumeClaim:
+        claimName: test-claim # 与pvc名称保持一致

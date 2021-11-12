@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hello
+spec:
+  completions: 5
+  template:
+    spec:
+      containers:
+        - name: hello
+          image: wuyiccc/nginx:latest
+          imagePullPolicy: IfNotPresent
+          command: ['sh', '-c', 'echo "Hello, Kubernetes! " && sleep 2']
+      restartPolicy: OnFailure

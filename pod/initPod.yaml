@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  labels:
+      app: myapp
+spec:
+  containers:
+  - name: myapp
+    image: busybox:1.28
+    imagePullPolicy: Never
+    command: ['sh', '-c', 'date && sleep 3600']
+    resources:
+        limits:
+            memory: "128Mi"
+            cpu: "200m"
+  initContainers:
+  - name: init
+    image: busybox:1.28
+    imagePullPolicy: Never
+    command: ['sh', '-c', 'date && sleep 10']
