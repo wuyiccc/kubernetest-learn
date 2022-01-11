@@ -35,7 +35,7 @@ spec:
         - name: flink-config-volume
           mountPath: /opt/flink/conf
         securityContext:
-          runAsUser: 9999  # refers to user _flink_ from official flink image, change if necessary
+          runAsUser: 0  # refers to user _flink_ from official flink image, change if necessary
       volumes:
       - name: flink-config-volume
         configMap:

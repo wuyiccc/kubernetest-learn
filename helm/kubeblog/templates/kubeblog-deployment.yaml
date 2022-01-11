@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       # .Release.Name在Chart.yaml里面
@@ -20,7 +20,7 @@ spec:
             - containerPort: {{ .Values.service.port }}
           env:
             - name: MYSQL_PORT
-              value: "30306"
+              value: "{{ .Values.mysql.port }}"
             - name: MYSQL_SERVER
               value: "192.168.137.160"
             - name: MYSQL_DB_NAME
@@ -33,4 +33,4 @@ spec:
                   name: mysql-password-test
                   key: MYSQL_PASSWORD_TEST
       imagePullSecrets:
-        - name: regcred-local-1
+        - name: regcred-local
